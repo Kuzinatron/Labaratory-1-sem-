@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+struct Time 
+{   unsigned days, hours, minutes, seconds, total;
+    void Timet(unsigned _days = 0, unsigned _hours = 0, unsigned _minutes = 0, unsigned _seconds = 0) 
+    {
+        days = _days;
+        hours = _hours;
+        minutes = _minutes;
+        seconds = _seconds;
+        total = ((_days * 24 + _hours) * 60 + _minutes) * 60 + _seconds;
+    }
+};
+void print(Time& time) {
+    unsigned _case, time_spans[4] = { time.days, time.hours, time.minutes, time.seconds };
+    string cases[4][3] = { { "дня", "день", "дней"},{"часа", "час", "часов"},{"минуты", "минута", "минут"},{"секунды", "секунда", "секунд"} };
+    for (int i = 0; i < 4; i++) 
+    {
+        if (time_spans[i] < 4 && time_spans[i] > 1) _case = 0;
+        else if (time_spans[i] == 1) _case = 1;
+        else _case = 2;
+        cout << time_spans[i] << " " << cases[i][_case] << " ";
+    }
+    cout << endl;
+}
+Time difference(Time& A, Time& B) 
+{
+    unsigned diff = (int(A.total - B.total));
+    unsigned s = diff % 60;
+    unsigned m = (diff % (60 * 60)) / 60;
+    unsigned h = (diff % (60 * 60 * 24)) / (60 * 60);
+    unsigned d = diff / (60 * 60 * 24);
+    Time C;
+    C.Timet(d, h, m, s);
+    return C;
+}
+ int main() 
+ {
+    setlocale(LC_ALL, "RUS");
+    unsigned d, h, m, s, d1, h1, m1, s1;
+    cout << "Введите первое время через пробел: дни, часы, минуты, секунды" << endl; 
+    cin >> d >> h >> m >> s;
+    Time A;
+    A.Timet(d, h, m, s);
+    cout << "\nВведите второе время через пробел: дни, часы, минуты, секунды" << endl;
+    cin >> d1 >> h1 >> m1 >> s1;
+    Time B;
+    B.Timet(d1, h1, m1, s1);
+    if (d1 > 0 && d > 0)
+    {
+        if (d < d1)
+        {
+            cout << "Невозможно" << endl;
+            return 0;
+
+        }
+
+    }
+    else if (h > 0 && h1 > 0)
+    {
+        if (h < h1)
+        {
+            cout << "Невозможно" << endl;
+            return 0;
+
+        }
+    }
+    else if (m > 0 && m1 > 0)
+    {
+        if (h < h1)
+        {
+            cout << "Невозможно" << endl;
+            return 0;
+
+        }
+    }
+
+    else if (s > 0 && s1 > 0)
+    {
+        if (s < s1)
+        {
+            cout << "Невозможно" << endl;
+            return 0;
+
+        }
+    }
+
+    Time C = difference(A, B);
+    cout << "\nПервое время: ";
+    print(A);
+    cout << "\nВторое время: ";
+    print(B);
+    cout << "\nРазница: ";
+    print(C);
+ }
