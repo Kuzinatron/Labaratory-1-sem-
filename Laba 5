@@ -1,0 +1,57 @@
+#include <iostream>
+#include<ctime>
+using namespace std;
+int main()
+{
+	srand(time(NULL));
+	setlocale(LC_ALL, "RUS");
+    int A,B,C;
+    
+    cout << "Введите m: ";
+    cin >> A;
+    cout << "Введите n: ";
+    cin >> B;
+
+    int **arr,**arr2, **arr3;
+    arr  = new int* [A];
+    arr2 = new int* [B];
+    arr3 = new int* [A];
+    
+    
+  
+    for (int i = 0; i < A; i++)
+    {
+        arr[i] = new int[B];
+        for (int j = 0; j < B; j++)
+        {
+            arr[i][j] = rand() % 21 -10;
+            cout << arr[i][j] << " | ";
+
+        }  cout << endl;
+    }
+    cout << " " << endl;
+    for (int i = 0; i < B; i++)
+    {
+        arr2[i] = new int[A];
+        for (int j = 0; j < A; j++)
+        {
+            arr2[i][j] = rand() % 21 -10;
+            cout << arr2[i][j] << " | ";
+
+        }  cout << endl;
+    }
+    cout << " " << endl;
+    for (int i = 0; i < A; i++)
+    {
+        arr3[i] = new int[A];
+        for (int j = 0; j < A; j++)
+        {
+            arr3[i][j] = 0;
+            for (int k = 0; k < B; k++)
+                arr3[i][j] += arr[i][k] * arr2[k][j];
+            cout << arr3[i][j] << " | ";
+        }cout << endl;
+    } 
+  
+	return 0;
+}
